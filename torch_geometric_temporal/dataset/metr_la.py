@@ -37,11 +37,9 @@ class METRLADatasetLoader(object):
 
     def _download_url(self, url, save_path):  # pragma: no cover
         # Check if file is in data folder from working directory, otherwise download
-        if not os.path.isfile(
-        os.path.join(self.raw_data_dir,save_path)
-        ):
+        if not os.path.isfile(save_path):
             print("Downloading to", save_path, flush=True)
-            
+
             response = requests.get(url, stream=True)
             file_size = int(response.headers.get('content-length', 0))
 
