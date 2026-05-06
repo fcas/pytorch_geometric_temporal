@@ -45,7 +45,7 @@ class METRLADatasetLoader(object):
             response = requests.get(url, stream=True)
             file_size = int(response.headers.get('content-length', 0))
 
-            with open(os.path.join(self.raw_data_dir, save_path), "wb") as file, tqdm(
+            with open(save_path, "wb") as file, tqdm(
                 total=file_size, unit="B", unit_scale=True, unit_divisor=1024
             ) as progress_bar:
                 for chunk in response.iter_content(chunk_size=33554432):
