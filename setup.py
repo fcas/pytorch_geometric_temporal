@@ -4,14 +4,13 @@ install_requires = [
     "decorator==4.4.2",
     "torch",
     "cython",
-    "pandas<=1.3.5",
-    "torch_sparse",
-    "torch_scatter",
     "torch_geometric",
     "numpy",
     "networkx",
 ]
-tests_require = ["pytest", "pytest-cov", "mock", "networkx", "tqdm"]
+tests_require = ["pytest", "pytest-cov", "mock", "networkx", "tqdm",'dask', "pandas", "tables", "scipy"]
+index_require = ['dask', "pandas", "tables"]
+ddp_require = ["dask[distributed]", "dask_pytorch_ddp", "pandas", "tables"]
 
 keywords = [
     "machine-learning",
@@ -38,7 +37,7 @@ keywords = [
 setup(
     name="torch_geometric_temporal",
     packages=find_packages(),
-    version="0.54.0",
+    version="0.56.2",
     license="MIT",
     description="A Temporal Extension Library for PyTorch Geometric.",
     author="Benedek Rozemberczki",
@@ -49,7 +48,9 @@ setup(
     install_requires=install_requires,
     extras_require={
         "test": tests_require,
-    },    
+        "index": index_require,
+        "ddp": ddp_require
+    },
     python_requires=">=3.6",
     classifiers=[
         "Development Status :: 3 - Alpha",

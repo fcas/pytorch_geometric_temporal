@@ -1,5 +1,6 @@
 import json
-import urllib
+import ssl
+import urllib.request
 import numpy as np
 from ..signal import StaticGraphTemporalSignal
 
@@ -12,11 +13,16 @@ class WindmillOutputSmallDatasetLoader(object):
     """
 
     def __init__(self):
+        raise RuntimeError("The WindmillSmall dataset is no longer accessible via 'graphmining.ai'. If you have a local copy, please contact the PGT maintainers, and we will re-upload the dataset. ")
+
         self._read_web_data()
 
     def _read_web_data(self):
         url = "https://graphmining.ai/temporal_datasets/windmill_output_small.json"
-        self._dataset = json.loads(urllib.request.urlopen(url).read().decode())
+        context = ssl._create_unverified_context()
+        self._dataset = json.loads(
+            urllib.request.urlopen(url, context=context).read().decode()
+        )
 
     def _get_edges(self):
         self._edges = np.array(self._dataset["edges"]).T
